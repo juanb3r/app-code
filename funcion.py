@@ -1,8 +1,26 @@
+import os
+import requests
 
+
+url = os.getenv("API_URL")
 
 def handler(event, context):
 
-    return {
-        'statusCode': 200,
-        'body': 'Saludos desde mi función'
-    }
+    try:
+
+        response = requests.get(url)
+
+        return {
+            'statusCode': response.status_code,
+            'body': response.json()
+        }
+    
+    except Exception:
+
+        return {
+            'statusCode': 500,
+            'body': {
+                'error': "There was an error",
+                'message': "We couldn't process the request"
+            }
+        }
