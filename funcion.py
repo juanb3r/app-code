@@ -1,5 +1,7 @@
+import json
 import os
 import requests
+
 
 
 url = os.getenv("API_URL")
@@ -12,7 +14,7 @@ def handler(event, context):
 
         return {
             'statusCode': response.status_code,
-            'body': response.json()
+            'body': json.dumps(response.json())
         }
     
     except Exception:
